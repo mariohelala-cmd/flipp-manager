@@ -1,14 +1,19 @@
-export const STAFF = ["Mario","Sara","Ahmed","Lily","Omar","Jess","Dia"];
-export const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+export const STAFF = ["Umensu","Sartak","Gary","Roshan","Imran","Mamata","Sarina","Sandi","Christina","Rima","Pragya"];
+export const DAYS  = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
+// roster[staffName][day] = { start, end, role } | null
 export const initialRoster = {
-  Mon:[["Mario","Manager","foh"],["Ahmed","Grill","boh"],["Lily","Cashier","foh"]],
-  Tue:[["Sara","Manager","foh"],["Omar","Grill","boh"],["Jess","Fries","boh"]],
-  Wed:[["Mario","Manager","foh"],["Dia","Grill","boh"],["Lily","Cashier","foh"]],
-  Thu:[["Sara","Manager","foh"],["Ahmed","Grill","boh"],["Omar","Prep","boh"]],
-  Fri:[["Mario","Manager","foh"],["Omar","Grill","boh"],["Jess","Cashier","foh"],["Dia","Fries","boh"]],
-  Sat:[["Sara","Manager","foh"],["Ahmed","Grill","boh"],["Lily","Cashier","foh"],["Dia","Prep","boh"]],
-  Sun:[["Mario","Manager","foh"],["Omar","Grill","boh"],["Jess","Cashier","foh"]],
+  Umensu:   { Mon:null,                    Tue:{start:"9:30",end:"18:00",role:"foh"}, Wed:{start:"9:30",end:"18:00",role:"foh"}, Thu:null,                         Fri:null,                         Sat:{start:"9:30",end:"18:00",role:"foh"}, Sun:null },
+  Sartak:   { Mon:null,                    Tue:{start:"9:30",end:"17:00",role:"boh"}, Wed:{start:"9:30",end:"17:00",role:"boh"}, Thu:{start:"9:30",end:"14:00",role:"boh"}, Fri:null,                   Sat:null,                                  Sun:{start:"10:00",end:"17:00",role:"boh"} },
+  Gary:     { Mon:{start:"9:30",end:"16:00",role:"foh"},  Tue:null,                  Wed:null,                                  Thu:null,                         Fri:{start:"9:30",end:"16:00",role:"foh"},  Sat:null,                           Sun:null },
+  Roshan:   { Mon:{start:"9:30",end:"18:00",role:"boh"},  Tue:null,                  Wed:null,                                  Thu:{start:"9:30",end:"13:30",role:"boh"}, Fri:null,                    Sat:{start:"11:00",end:"18:00",role:"boh"}, Sun:{start:"12:00",end:"17:00",role:"boh"} },
+  Imran:    { Mon:{start:"15:00",end:"18:00",role:"foh"}, Tue:null,                  Wed:null,                                  Thu:{start:"14:30",end:"21:30",role:"foh"}, Fri:{start:"11:00",end:"18:00",role:"foh"}, Sat:null,                  Sun:null },
+  Mamata:   { Mon:null,                    Tue:null,                                  Wed:null,                                  Thu:{start:"16:00",end:"21:00",role:"foh"}, Fri:null,                   Sat:{start:"12:00",end:"18:00",role:"foh"}, Sun:{start:"10:00",end:"16:00",role:"foh"} },
+  Sarina:   { Mon:null,                    Tue:null,                                  Wed:null,                                  Thu:{start:"16:00",end:"21:30",role:"foh"}, Fri:null,                   Sat:{start:"9:30",end:"17:30",role:"foh"},  Sun:{start:"11:00",end:"17:00",role:"foh"} },
+  Sandi:    { Mon:null,                    Tue:null,                                  Wed:null,                                  Thu:{start:"10:30",end:"21:30",role:"boh"}, Fri:null,                   Sat:{start:"11:00",end:"18:00",role:"boh"}, Sun:{start:"11:00",end:"17:00",role:"boh"} },
+  Christina:{ Mon:null,                    Tue:null,                                  Wed:null,                                  Thu:{start:"17:00",end:"21:00",role:"foh"}, Fri:null,                   Sat:null,                                  Sun:null },
+  Rima:     { Mon:{start:"11:00",end:"18:00",role:"foh"}, Tue:null,                  Wed:null,                                  Thu:null,                         Fri:null,                             Sat:null,                                  Sun:null },
+  Pragya:   { Mon:null,                    Tue:null,                                  Wed:null,                                  Thu:{start:"17:00",end:"21:00",role:"foh"}, Fri:{start:"11:00",end:"18:00",role:"foh"}, Sat:null,                  Sun:null },
 };
 
 export const initialTasks = [
