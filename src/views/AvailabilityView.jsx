@@ -196,7 +196,7 @@ export default function AvailabilityView({ flash }) {
       </div>
 
       <style>{`
-        .avail-cell { display: flex; align-items: center; gap: 4px; justify-content: center; }
+        .avail-cell { display: flex; align-items: center; gap: 4px; justify-content: flex-start; padding-left: 8px; }
         .avail-btn {
           flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px;
           border: 2px solid #d1d5db; background: #f9fafb;
