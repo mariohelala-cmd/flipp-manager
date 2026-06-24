@@ -60,13 +60,17 @@ export const finance = {
 };
 
 export const performance = [
-  {name:"Mario",role:"Manager",shifts:5,onTime:5,rating:4.9,notes:"Excellent leadership this week."},
-  {name:"Sara",role:"Manager",shifts:4,onTime:4,rating:4.7,notes:"Great team communication."},
-  {name:"Ahmed",role:"Grill",shifts:5,onTime:4,rating:4.5,notes:"One late arrival Mon — otherwise solid."},
-  {name:"Lily",role:"Cashier",shifts:4,onTime:4,rating:4.8,notes:"Customers love her service."},
-  {name:"Omar",role:"Grill",shifts:5,onTime:5,rating:4.6,notes:"Consistent speed on the grill."},
-  {name:"Jess",role:"Cashier",shifts:3,onTime:3,rating:4.4,notes:"Requested shift swap handled well."},
-  {name:"Dia",role:"Prep",shifts:4,onTime:3,rating:4.2,notes:"Two late starts — follow up needed."},
+  {name:"Sartak",   role:"BOH",     shifts:5, onTime:5, rating:4.9, notes:"Top of the team this week — great hustle on the grill."},
+  {name:"Umensu",   role:"FOH",     shifts:4, onTime:4, rating:4.7, notes:"Customers love the energy, solid all week."},
+  {name:"Roshan",   role:"BOH",     shifts:5, onTime:5, rating:4.6, notes:"Consistent speed and clean station throughout."},
+  {name:"Sarina",   role:"FOH",     shifts:4, onTime:4, rating:4.5, notes:"Good attitude, handled busy periods well."},
+  {name:"Sandi",    role:"BOH",     shifts:4, onTime:3, rating:4.0, notes:"One late arrival Thu — otherwise reliable."},
+  {name:"Mamata",   role:"FOH",     shifts:3, onTime:3, rating:3.9, notes:"Quieter week, needs more initiative on floor."},
+  {name:"Christina",role:"FOH",     shifts:3, onTime:2, rating:3.6, notes:"Two late starts this week — follow up required."},
+  {name:"Rima",     role:"FOH",     shifts:4, onTime:4, rating:4.3, notes:"Good customer feedback, improving week on week."},
+  {name:"Pragya",   role:"BOH",     shifts:4, onTime:3, rating:3.8, notes:"Missed a couple of prep tasks — needs checking."},
+  {name:"Gary",     role:"BOH",     shifts:3, onTime:2, rating:2.8, notes:"Kitchen not prepped at opening twice this week — tasks skipped. Needs immediate follow up."},
+  {name:"Imran",    role:"FOH",     shifts:2, onTime:1, rating:2.4, notes:"Cancelled two shifts last minute with no notice — impacted the team. Formal discussion needed."},
 ];
 
 export const initialIncidents = [
