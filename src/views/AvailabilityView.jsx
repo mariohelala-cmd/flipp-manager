@@ -209,16 +209,15 @@ export default function AvailabilityView({ flash }) {
         .avail-btn:hover .avail-tick { color: var(--red); }
         .avail-checked .avail-tick { color: #fff !important; }
         .avail-note {
-          width: 0; opacity: 0; pointer-events: none;
+          width: 80px; opacity: 0; pointer-events: none;
           font-size: 11px; border: 1px solid #e5e7eb; border-radius: 5px;
           padding: 3px 6px; background: #fff; color: #333;
-          transition: width .2s ease, opacity .2s ease;
-          white-space: nowrap; overflow: hidden;
+          transition: opacity .15s ease;
         }
         .avail-cell:hover .avail-note,
         .avail-note:focus,
         .avail-note.has-value {
-          width: 80px; opacity: 1; pointer-events: auto;
+          opacity: 1; pointer-events: auto;
         }
         .avail-note:focus { outline: none; border-color: var(--red); }
       `}</style>
