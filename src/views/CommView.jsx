@@ -14,9 +14,9 @@ export default function CommView({ flash }) {
       <div className="card">
         <h3>Recent messages</h3>
         {[
-          {who:'Mario (Manager)',when:'Today 07:50',txt:'Morning all — Friday we\'re trialling the new loaded fries. Ahmed will brief BOH at open.'},
-          {who:'Sara',when:'Yest 18:20',txt:'Great service push tonight team, 4.8★ avg on the delivery apps 🎉'},
-          {who:'Omar',when:'Yest 14:05',txt:'Can someone cover 30 min Sat while I do a supplier pickup?'},
+          {who:'Mario (Manager)',when:'Today 07:50',txt:'Morning all — Friday we\'re trialling the new loaded fries. Sandi will brief BOH at open.'},
+          {who:'Sarina',when:'Yest 18:20',txt:'Great service push tonight team, 4.8★ avg on the delivery apps 🎉'},
+          {who:'Imran',when:'Yest 14:05',txt:'Can someone cover 30 min Sat while I do a supplier pickup?'},
         ].map((m,i) => (
           <div key={i} className="cmt">
             <span className="cmt-when">{m.when}</span>
