@@ -104,8 +104,9 @@ function ShiftCell({ shift, onUpdate, onRemove, onDragStart, onDrop }) {
   );
 }
 
-export default function RosterView({ roster: initRoster, staffList, setStaffList, flash }) {
+export default function RosterView({ roster: initRoster, flash }) {
   const [roster, setRoster] = useState(initRoster);
+  const [staffList, setStaffList] = useState(STAFF);
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(null);

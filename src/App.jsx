@@ -19,14 +19,12 @@ import ChecklistView      from './views/ChecklistView';
 import AvailabilityView   from './views/AvailabilityView';
 
 import {
-  STAFF,
   initialRoster, initialTasks, initialEmails,
   initialIncidents, initialChecklist, initialComments,
 } from './data/initialData';
 
 export default function App() {
   const [tab, setTab]             = useState('roster');
-  const [staffList, setStaffList] = useState(STAFF);
   const [roster]                  = useState(initialRoster);
   const [tasks, setTasks]         = useState(initialTasks);
   const [emails, setEmails]       = useState(initialEmails);
@@ -48,7 +46,7 @@ export default function App() {
   const viewProps = { flash, onNavigate: navigate };
 
   const views = {
-    roster:      <RosterView      roster={roster} staffList={staffList} setStaffList={setStaffList} {...viewProps} />,
+    roster:      <RosterView      roster={roster}                                     {...viewProps} />,
     tasks:       <TasksView       tasks={tasks}       setTasks={setTasks}             {...viewProps} />,
     comm:        <CommView                                                              {...viewProps} />,
     suppliers:   <SuppliersView                                                        {...viewProps} />,
@@ -58,7 +56,7 @@ export default function App() {
     performance: <PerformanceView                                                      {...viewProps} />,
     incidents:   <IncidentsView   incidents={incidents} setIncidents={setIncidents}   {...viewProps} />,
     checklist:    <ChecklistView    checklist={checklist} setChecklist={setChecklist}   {...viewProps} />,
-    availability: <AvailabilityView staffList={staffList} setStaffList={setStaffList}   {...viewProps} />,
+    availability: <AvailabilityView                                                      {...viewProps} />,
   };
 
   return (

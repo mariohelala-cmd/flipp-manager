@@ -3,10 +3,11 @@ import { STAFF, DAYS } from '../data/initialData';
 
 const MIN_STAFF = 3; // threshold below which a day is flagged as short
 
-export default function AvailabilityView({ staffList, setStaffList, flash }) {
+export default function AvailabilityView({ flash }) {
+  const [staffList, setStaffList] = useState(STAFF);
   const [avail, setAvail] = useState(() => {
     const init = {};
-    staffList.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); });
+    STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); });
     return init;
   });
   const [notes, setNotes] = useState(() => {
@@ -32,7 +33,6 @@ export default function AvailabilityView({ staffList, setStaffList, flash }) {
     if (staffList.includes(name)) { flash(`${name} is already listed`); return; }
     setStaffList(s => [...s, name]);
     setAvail(a => { const days = {}; DAYS.forEach(d => { days[d] = false; }); return { ...a, [name]: days }; });
-    setNotes(n => { const days = {}; DAYS.forEach(d => { days[d] = ''; }); return { ...n, [name]: days }; });
     setNewName('');
     setAdding(false);
     flash(`${name} added`);
@@ -41,7 +41,6 @@ export default function AvailabilityView({ staffList, setStaffList, flash }) {
   function deleteStaff(name) {
     setStaffList(s => s.filter(n => n !== name));
     setAvail(a => { const next = { ...a }; delete next[name]; return next; });
-    setNotes(n => { const next = { ...n }; delete next[name]; return next; });
     setConfirmDelete(null);
     flash(`${name} removed`);
   }
