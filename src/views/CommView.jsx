@@ -120,11 +120,11 @@ export default function CommView({ flash }) {
                   onClick={() => setConfirmDelete(m.id)}
                   style={{
                     position: 'absolute', top: 10, right: 10,
-                    background: '#fee2e2', border: '1px solid #fca5a5',
-                    color: 'var(--red)', borderRadius: 6,
-                    padding: '3px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                    background: 'none', border: 'none',
+                    color: '#ccc', fontSize: 16, fontWeight: 700, cursor: 'pointer', lineHeight: 1,
                   }}
-                >Delete</button>
+                  title="Delete message"
+                >✕</button>
               )}
             </div>
           );
