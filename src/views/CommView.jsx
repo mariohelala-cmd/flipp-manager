@@ -24,7 +24,7 @@ export default function CommView({ flash }) {
             <div className="cmt-txt">{m.txt}</div>
           </div>
         ))}
-        <div className="note"><b>🔌 Integration point:</b> connect Slack, WhatsApp Business or SMS here so posts push to staff phones and replies sync back. (Not live in this demo.)</div>
+
       </div>
     </>
   );
