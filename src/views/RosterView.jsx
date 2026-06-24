@@ -109,7 +109,15 @@ export default function RosterView({ roster: initRoster, flash }) {
   const [staffList, setStaffList] = useState(STAFF);
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(null);
   const drag = useRef(null);
+
+  function deleteStaff(name) {
+    setStaffList(s => s.filter(n => n !== name));
+    setRoster(r => { const next = { ...r }; delete next[name]; return next; });
+    setConfirmDelete(null);
+    flash(`${name} removed from roster`);
+  }
 
   function addStaff() {
     const name = newName.trim();
@@ -190,7 +198,23 @@ export default function RosterView({ roster: initRoster, flash }) {
           <tbody>
             {staffList.map((staff, si) => (
               <tr key={staff} style={{ background: si % 2 === 0 ? '#fff' : '#fdf5f8' }}>
-                <td style={{ fontWeight: 700, fontSize: 14, padding: '8px 16px', borderRight: '1px solid var(--line)' }}>{staff}</td>
+                <td style={{ fontWeight: 700, fontSize: 14, padding: '8px 12px', borderRight: '1px solid var(--line)', minWidth: 130 }}>
+                  {confirmDelete === staff ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <span style={{ fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>Remove {staff}?</span>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <button onClick={() => deleteStaff(staff)} style={{ flex: 1, background: 'var(--red)', color: '#fff', border: 0, borderRadius: 6, padding: '3px 0', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Yes</button>
+                        <button onClick={() => setConfirmDelete(null)} style={{ flex: 1, background: '#eee', border: 0, borderRadius: 6, padding: '3px 0', fontSize: 11, cursor: 'pointer' }}>No</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <span
+                      onClick={() => setConfirmDelete(staff)}
+                      style={{ cursor: 'pointer' }}
+                      title="Click to remove staff member"
+                    >{staff}</span>
+                  )}
+                </td>
                 {DAYS.map(day => (
                   <ShiftCell
                     key={day}
