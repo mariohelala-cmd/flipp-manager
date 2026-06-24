@@ -3,21 +3,42 @@ import { STAFF, DAYS } from '../data/initialData';
 
 const MIN_STAFF = 3; // threshold below which a day is flagged as short
 
+function loadSaved() {
+  try {
+    const raw = localStorage.getItem('flipp-availability');
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return null;
+}
+
+function buildDefault(list) {
+  const avail = {}, notes = {};
+  list.forEach(s => {
+    avail[s] = {}; notes[s] = {};
+    DAYS.forEach(d => { avail[s][d] = false; notes[s][d] = ''; });
+  });
+  return { staffList: list, avail, notes };
+}
+
 export default function AvailabilityView({ flash }) {
-  const [staffList, setStaffList] = useState(STAFF);
+  const saved = loadSaved();
+  const [staffList, setStaffList] = useState(saved?.staffList ?? STAFF);
   const [avail, setAvail] = useState(() => {
-    const init = {};
-    STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); });
-    return init;
+    if (saved?.avail) return saved.avail;
+    const init = {}; STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); }); return init;
   });
   const [notes, setNotes] = useState(() => {
-    const init = {};
-    STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = ''; }); });
-    return init;
+    if (saved?.notes) return saved.notes;
+    const init = {}; STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = ''; }); }); return init;
   });
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(null);
+
+  function save() {
+    localStorage.setItem('flipp-availability', JSON.stringify({ staffList, avail, notes }));
+    flash('Availability saved');
+  }
 
   function toggle(staff, day) {
     setAvail(a => ({ ...a, [staff]: { ...a[staff], [day]: !a[staff][day] } }));
@@ -67,7 +88,10 @@ export default function AvailabilityView({ flash }) {
             <button className="btn ghost sm" onClick={() => { setAdding(false); setNewName(''); }}>Cancel</button>
           </div>
         ) : (
-          <button className="btn ghost sm" style={{ marginLeft: 'auto' }} onClick={() => setAdding(true)}>+ Add Staff</button>
+          <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
+            <button className="btn ghost sm" onClick={() => setAdding(true)}>+ Add Staff</button>
+            <button className="btn sm" onClick={save}>Save</button>
+          </div>
         )}
       </div>
 
