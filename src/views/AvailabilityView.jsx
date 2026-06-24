@@ -10,12 +10,21 @@ export default function AvailabilityView({ flash }) {
     STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); });
     return init;
   });
+  const [notes, setNotes] = useState(() => {
+    const init = {};
+    STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = ''; }); });
+    return init;
+  });
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(null);
 
   function toggle(staff, day) {
     setAvail(a => ({ ...a, [staff]: { ...a[staff], [day]: !a[staff][day] } }));
+  }
+
+  function setNote(staff, day, val) {
+    setNotes(n => ({ ...n, [staff]: { ...n[staff], [day]: val } }));
   }
 
   function addStaff() {
@@ -100,15 +109,25 @@ export default function AvailabilityView({ flash }) {
                 </td>
                 {DAYS.map(d => {
                   const checked = avail[staff]?.[d];
+                  const note = notes[staff]?.[d] || '';
                   return (
-                    <td key={d} style={{ textAlign: 'center', padding: '5px 4px' }}>
-                      <button
-                        className={`avail-btn${checked ? ' avail-checked' : ''}`}
-                        onClick={() => toggle(staff, d)}
-                        title={`${staff} – ${d}`}
-                      >
-                        <span className="avail-tick">✓</span>
-                      </button>
+                    <td key={d} style={{ padding: '5px 4px' }}>
+                      <div className="avail-cell">
+                        <button
+                          className={`avail-btn${checked ? ' avail-checked' : ''}`}
+                          onClick={() => toggle(staff, d)}
+                          title={`${staff} – ${d}`}
+                        >
+                          <span className="avail-tick">✓</span>
+                        </button>
+                        <input
+                          className="avail-note"
+                          value={note}
+                          onChange={e => setNote(staff, d, e.target.value)}
+                          placeholder="e.g. after 2pm"
+                          title={note || 'Add a time note'}
+                        />
+                      </div>
                     </td>
                   );
                 })}
@@ -177,8 +196,9 @@ export default function AvailabilityView({ flash }) {
       </div>
 
       <style>{`
+        .avail-cell { display: flex; align-items: center; gap: 4px; justify-content: center; }
         .avail-btn {
-          width: 28px; height: 28px; border-radius: 6px;
+          flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px;
           border: 2px solid #d1d5db; background: #f9fafb;
           cursor: pointer; transition: all .15s;
           display: inline-flex; align-items: center; justify-content: center;
@@ -188,6 +208,20 @@ export default function AvailabilityView({ flash }) {
         .avail-tick { font-size: 14px; font-weight: 900; color: transparent; transition: color .15s; line-height: 1; }
         .avail-btn:hover .avail-tick { color: var(--red); }
         .avail-checked .avail-tick { color: #fff !important; }
+        .avail-note {
+          width: 0; opacity: 0; pointer-events: none;
+          font-size: 11px; border: 1px solid #e5e7eb; border-radius: 5px;
+          padding: 3px 6px; background: #fff; color: #333;
+          transition: width .2s ease, opacity .2s ease;
+          white-space: nowrap; overflow: hidden;
+        }
+        .avail-cell:hover .avail-note {
+          width: 80px; opacity: 1; pointer-events: auto;
+        }
+        .avail-note:focus {
+          width: 80px !important; opacity: 1 !important; pointer-events: auto !important;
+          outline: none; border-color: var(--red);
+        }
       `}</style>
     </>
   );
