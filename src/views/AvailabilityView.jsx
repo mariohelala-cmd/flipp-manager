@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { STAFF, DAYS } from '../data/initialData';
 
-const TICK = '✓';
+const MIN_STAFF = 3; // threshold below which a day is flagged as short
 
 export default function AvailabilityView({ flash }) {
   const [staffList, setStaffList] = useState(STAFF);
@@ -37,6 +37,8 @@ export default function AvailabilityView({ flash }) {
   }
 
   const daysAvail = d => staffList.filter(s => avail[s]?.[d]).length;
+  const shortDays = DAYS.filter(d => daysAvail(d) < MIN_STAFF);
+  const bestDay   = DAYS.reduce((best, d) => daysAvail(d) >= daysAvail(best) ? d : best, DAYS[0]);
 
   return (
     <>
@@ -46,8 +48,7 @@ export default function AvailabilityView({ flash }) {
         {adding ? (
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginLeft: 'auto' }}>
             <input
-              autoFocus
-              value={newName}
+              autoFocus value={newName}
               onChange={e => setNewName(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') addStaff(); if (e.key === 'Escape') { setAdding(false); setNewName(''); } }}
               placeholder="Staff name…"
@@ -62,20 +63,29 @@ export default function AvailabilityView({ flash }) {
       </div>
 
       <div className="card" style={{ overflowX: 'auto', padding: 0 }}>
-        <table style={{ minWidth: 700, borderCollapse: 'collapse', width: '100%' }}>
+        <table style={{ minWidth: 680, borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr style={{ background: 'var(--charcoal)' }}>
-              <th style={{ color: '#fff', padding: '12px 16px', textAlign: 'left', minWidth: 130 }}>Name</th>
+              <th style={{
+                color: '#fff', padding: '13px 16px', textAlign: 'left', minWidth: 130,
+                fontSize: 13, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+              }}>Name</th>
               {DAYS.map(d => (
-                <th key={d} style={{ color: '#fff', textAlign: 'center', padding: '12px 10px', minWidth: 70 }}>{d}</th>
+                <th key={d} style={{
+                  color: '#fff', textAlign: 'center', padding: '13px 8px', minWidth: 66,
+                  fontSize: 13, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+                }}>{d}</th>
               ))}
-              <th style={{ color: '#fff', textAlign: 'center', padding: '12px 10px', minWidth: 60 }}>Days</th>
+              <th style={{
+                color: '#e8c4d8', textAlign: 'center', padding: '13px 8px', minWidth: 52,
+                fontSize: 11, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+              }}>Days</th>
             </tr>
           </thead>
           <tbody>
             {staffList.map((staff, si) => (
               <tr key={staff} style={{ background: si % 2 === 0 ? '#fff' : '#fdf5f8' }}>
-                <td style={{ fontWeight: 700, fontSize: 14, padding: '8px 12px', borderRight: '1px solid var(--line)' }}>
+                <td style={{ fontWeight: 700, fontSize: 14, padding: '6px 12px', borderRight: '1px solid var(--line)' }}>
                   {confirmDelete === staff ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                       <span style={{ fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>Remove {staff}?</span>
@@ -91,53 +101,94 @@ export default function AvailabilityView({ flash }) {
                 {DAYS.map(d => {
                   const checked = avail[staff]?.[d];
                   return (
-                    <td key={d} style={{ textAlign: 'center', padding: '6px 4px' }}>
+                    <td key={d} style={{ textAlign: 'center', padding: '5px 4px' }}>
                       <button
+                        className={`avail-btn${checked ? ' avail-checked' : ''}`}
                         onClick={() => toggle(staff, d)}
-                        style={{
-                          width: 36, height: 36, borderRadius: 8, border: '2px solid',
-                          borderColor: checked ? 'var(--red)' : '#ddd',
-                          background: checked ? 'var(--red)' : '#fafafa',
-                          color: checked ? '#fff' : 'transparent',
-                          fontSize: 18, fontWeight: 900, cursor: 'pointer',
-                          transition: 'all .15s', lineHeight: 1,
-                        }}
-                        title={`Toggle ${staff} – ${d}`}
+                        title={`${staff} – ${d}`}
                       >
-                        {TICK}
+                        <span className="avail-tick">✓</span>
                       </button>
                     </td>
                   );
                 })}
-                <td style={{ textAlign: 'center', fontWeight: 700, fontSize: 14, color: 'var(--red)', padding: '6px 10px' }}>
+                <td style={{ textAlign: 'center', fontWeight: 700, fontSize: 13, color: 'var(--red)', padding: '5px 8px' }}>
                   {DAYS.filter(d => avail[staff]?.[d]).length}
                 </td>
               </tr>
             ))}
           </tbody>
           <tfoot>
-            <tr style={{ background: '#f5f5f5', borderTop: '2px solid var(--line)' }}>
-              <td style={{ fontWeight: 700, fontSize: 12, padding: '8px 12px', color: '#888' }}>Staff available</td>
-              {DAYS.map(d => (
-                <td key={d} style={{ textAlign: 'center', fontWeight: 700, fontSize: 13 }}>
-                  <span style={{
-                    display: 'inline-block', minWidth: 24, padding: '2px 6px',
-                    borderRadius: 8, background: daysAvail(d) > 0 ? '#dbeafe' : '#f0f0f0',
-                    color: daysAvail(d) > 0 ? '#1d4ed8' : '#bbb', fontSize: 12, fontWeight: 700,
-                  }}>{daysAvail(d)}</span>
-                </td>
-              ))}
+            <tr style={{ background: '#f0f0f0', borderTop: '2px solid var(--line)' }}>
+              <td style={{ fontWeight: 700, fontSize: 12, padding: '8px 12px', color: '#555', textTransform: 'uppercase', letterSpacing: '.4px' }}>Available</td>
+              {DAYS.map(d => {
+                const n = daysAvail(d);
+                const short = n < MIN_STAFF;
+                return (
+                  <td key={d} style={{ textAlign: 'center', padding: '8px 4px' }}>
+                    <span style={{
+                      display: 'inline-block', minWidth: 26, padding: '3px 7px',
+                      borderRadius: 8, fontSize: 12, fontWeight: 700,
+                      background: short ? '#fee2e2' : '#dbeafe',
+                      color: short ? 'var(--red)' : '#1d4ed8',
+                    }}>{n}</span>
+                  </td>
+                );
+              })}
               <td />
             </tr>
           </tfoot>
         </table>
       </div>
 
-      <div className="grid3" style={{ marginTop: 16 }}>
+      {/* Short-staffed alert panel */}
+      <div className="card" style={{ marginTop: 12, padding: '14px 18px' }}>
+        <div style={{ fontWeight: 700, fontSize: 13, color: '#555', textTransform: 'uppercase', letterSpacing: '.5px', marginBottom: 10 }}>
+          Staffing Summary
+        </div>
+        {shortDays.length === 0 ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#16a34a', fontWeight: 600, fontSize: 14 }}>
+            <span style={{ fontSize: 18 }}>✅</span> All days are adequately staffed
+          </div>
+        ) : (
+          <>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--red)', fontWeight: 600, fontSize: 13, marginBottom: 8 }}>
+              <span style={{ fontSize: 16 }}>⚠️</span> Short on staff — fewer than {MIN_STAFF} available on:
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {shortDays.map(d => (
+                <span key={d} style={{
+                  background: '#fee2e2', color: 'var(--red)', fontWeight: 700,
+                  fontSize: 13, padding: '4px 14px', borderRadius: 20,
+                  border: '1px solid #fca5a5',
+                }}>
+                  {d} · {daysAvail(d)} staff
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="grid3" style={{ marginTop: 12 }}>
         <div className="kpi"><div className="k">Total staff</div><div className="v">{staffList.length}</div></div>
         <div className="kpi"><div className="k">Fully available</div><div className="v">{staffList.filter(s => DAYS.every(d => avail[s]?.[d])).length}</div></div>
-        <div className="kpi"><div className="k">Best day</div><div className="v">{DAYS.reduce((best, d) => daysAvail(d) >= daysAvail(best) ? d : best, DAYS[0])}</div></div>
+        <div className="kpi"><div className="k">Best day</div><div className="v">{bestDay}</div></div>
       </div>
+
+      <style>{`
+        .avail-btn {
+          width: 28px; height: 28px; border-radius: 6px;
+          border: 2px solid #d1d5db; background: #f9fafb;
+          cursor: pointer; transition: all .15s;
+          display: inline-flex; align-items: center; justify-content: center;
+        }
+        .avail-btn:hover { border-color: var(--red); background: #fff0f3; }
+        .avail-checked { border-color: var(--red) !important; background: var(--red) !important; }
+        .avail-tick { font-size: 14px; font-weight: 900; color: transparent; transition: color .15s; line-height: 1; }
+        .avail-btn:hover .avail-tick { color: var(--red); }
+        .avail-checked .avail-tick { color: #fff !important; }
+      `}</style>
     </>
   );
 }
