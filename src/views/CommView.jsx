@@ -118,7 +118,7 @@ export default function CommView({ flash }) {
               </div>
               <div className="cmt-txt">{m.txt}</div>
 
-              {confirmDelete === m.id ? (
+              {confirmDelete === m.id && (
                 <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 8 }}>
                   <span style={{ fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>Delete this message?</span>
                   <button onClick={() => deleteMsg(m.id)} style={{ background: 'var(--red)', color: '#fff', border: 0, borderRadius: 6, padding: '3px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Yes, delete</button>
