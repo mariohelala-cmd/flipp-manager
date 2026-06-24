@@ -11,26 +11,39 @@ function loadSaved() {
   return null;
 }
 
-function buildDefault(list) {
-  const avail = {}, notes = {};
-  list.forEach(s => {
-    avail[s] = {}; notes[s] = {};
-    DAYS.forEach(d => { avail[s][d] = false; notes[s][d] = ''; });
-  });
-  return { staffList: list, avail, notes };
-}
+const DEFAULT_AVAIL = {
+  Umensu:   { Mon:false, Tue:true,  Wed:true,  Thu:false, Fri:false, Sat:true,  Sun:false },
+  Sartak:   { Mon:false, Tue:true,  Wed:true,  Thu:true,  Fri:false, Sat:false, Sun:true  },
+  Gary:     { Mon:true,  Tue:false, Wed:false, Thu:true,  Fri:true,  Sat:false, Sun:false },
+  Roshan:   { Mon:true,  Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+  Imran:    { Mon:true,  Tue:true,  Wed:false, Thu:true,  Fri:true,  Sat:false, Sun:true  },
+  Mamata:   { Mon:false, Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+  Sarina:   { Mon:false, Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+  Sandi:    { Mon:false, Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+  Christina:{ Mon:false, Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+  Rima:     { Mon:true,  Tue:false, Wed:false, Thu:false, Fri:true,  Sat:true,  Sun:false },
+  Pragya:   { Mon:true,  Tue:false, Wed:false, Thu:true,  Fri:false, Sat:true,  Sun:true  },
+};
+
+const DEFAULT_NOTES = {
+  Umensu:   { Mon:'', Tue:'', Wed:'', Thu:'', Fri:'', Sat:'', Sun:'' },
+  Sartak:   { Mon:'', Tue:'', Wed:'', Thu:'maybe', Fri:'', Sat:'', Sun:'' },
+  Gary:     { Mon:'', Tue:'', Wed:'', Thu:'', Fri:'', Sat:'', Sun:'' },
+  Roshan:   { Mon:'', Tue:'', Wed:'', Thu:'', Fri:'', Sat:'', Sun:'' },
+  Imran:    { Mon:'after 2pm', Tue:'after 2pm', Wed:'', Thu:'after 2pm', Fri:'', Sat:'', Sun:'' },
+  Mamata:   { Mon:'', Tue:'', Wed:'', Thu:'afternoon', Fri:'', Sat:'', Sun:'' },
+  Sarina:   { Mon:'', Tue:'', Wed:'', Thu:'afternoon', Fri:'', Sat:'', Sun:'' },
+  Sandi:    { Mon:'', Tue:'', Wed:'', Thu:'afternoon', Fri:'', Sat:'', Sun:'' },
+  Christina:{ Mon:'', Tue:'', Wed:'', Thu:'', Fri:'', Sat:'', Sun:'' },
+  Rima:     { Mon:'', Tue:'', Wed:'', Thu:'', Fri:'', Sat:'', Sun:'' },
+  Pragya:   { Mon:'', Tue:'', Wed:'', Thu:'morning', Fri:'', Sat:'', Sun:'' },
+};
 
 export default function AvailabilityView({ flash }) {
   const saved = loadSaved();
   const [staffList, setStaffList] = useState(saved?.staffList ?? STAFF);
-  const [avail, setAvail] = useState(() => {
-    if (saved?.avail) return saved.avail;
-    const init = {}; STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = false; }); }); return init;
-  });
-  const [notes, setNotes] = useState(() => {
-    if (saved?.notes) return saved.notes;
-    const init = {}; STAFF.forEach(s => { init[s] = {}; DAYS.forEach(d => { init[s][d] = ''; }); }); return init;
-  });
+  const [avail, setAvail]   = useState(saved?.avail  ?? DEFAULT_AVAIL);
+  const [notes, setNotes]   = useState(saved?.notes  ?? DEFAULT_NOTES);
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(null);
