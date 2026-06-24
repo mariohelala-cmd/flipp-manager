@@ -17,6 +17,11 @@ export default function IncidentsView({ incidents, setIncidents, flash }) {
     setIncidents(prev => prev.map((inc, idx) => idx === i ? { ...inc, status: 'Resolved' } : inc));
   }
 
+  function remove(i) {
+    setIncidents(prev => prev.filter((_, idx) => idx !== i));
+    flash('Incident removed');
+  }
+
   function log() {
     if (!desc.trim()) return;
     const now = new Date();
@@ -54,10 +59,15 @@ export default function IncidentsView({ incidents, setIncidents, flash }) {
                 <td style={{fontSize:13}}>{inc.desc}</td>
                 <td style={{fontSize:12}}>{inc.reporter}</td>
                 <td><span className={`pill-role ${inc.status === 'Open' ? 'foh' : 'boh'}`}>{inc.status}</span></td>
-                <td>
+                <td style={{ whiteSpace: 'nowrap' }}>
                   {inc.status === 'Open' && (
-                    <button className="btn ghost sm" onClick={() => resolve(i)}>Resolve</button>
+                    <button className="btn ghost sm" onClick={() => resolve(i)} style={{ marginRight: 6 }}>Resolve</button>
                   )}
+                  <button
+                    onClick={() => remove(i)}
+                    style={{ background: 'none', border: 'none', color: 'var(--red)', fontSize: 16, fontWeight: 700, cursor: 'pointer', lineHeight: 1, padding: '0 2px' }}
+                    title="Delete incident"
+                  >✕</button>
                 </td>
               </tr>
             ))}

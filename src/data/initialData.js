@@ -74,10 +74,10 @@ export const performance = [
 ];
 
 export const initialIncidents = [
-  {date:"Mon 22 Jun",type:"Equipment",sev:"High",desc:"Fryer #2 rattling noise — CleanPro booked for Thu inspection.",reporter:"Sara",status:"Open"},
-  {date:"Tue 17 Jun",type:"Customer",sev:"Med",desc:"Customer complaint re: wait time during lunch rush. Addressed with team.",reporter:"Mario",status:"Resolved"},
-  {date:"Sat 14 Jun",type:"Staff",sev:"Low",desc:"Jess arrived 15 min late due to transport. Noted in file.",reporter:"Sara",status:"Resolved"},
-  {date:"Thu 12 Jun",type:"Food Safety",sev:"High",desc:"Fridge #1 temp logged at 6°C — reset and monitored. Back to 3°C within 1hr.",reporter:"Ahmed",status:"Resolved"},
+  {date:"Mon 22 Jun",type:"Equipment",  sev:"High",desc:"Fryer #2 rattling noise — CleanPro booked for Thu inspection.",                            reporter:"Sandi",  status:"Open"},
+  {date:"Tue 17 Jun",type:"Customer",   sev:"Med", desc:"Customer complaint re: wait time during lunch rush. Addressed with team.",                  reporter:"Mario",  status:"Resolved"},
+  {date:"Sat 14 Jun",type:"Staff",      sev:"Low", desc:"Imran arrived 15 min late due to transport. Noted in file.",                                reporter:"Umensu", status:"Resolved"},
+  {date:"Thu 12 Jun",type:"Food Safety",sev:"High",desc:"Fridge #1 temp logged at 6°C — reset and monitored. Back to 3°C within 1hr.",              reporter:"Roshan", status:"Resolved"},
 ];
 
 export const initialChecklist = {
