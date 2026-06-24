@@ -71,12 +71,12 @@ function ShiftCell({ shift, onUpdate, onRemove, onDragStart, onDrop }) {
   if (!shift) {
     return (
       <td
-        style={{ textAlign: 'center', color: '#ddd', cursor: 'pointer', minWidth: 110 }}
+        className="empty-cell"
         onClick={() => { setDraft({ start: '', end: '', role: 'foh' }); setEditing(true); }}
         onDragOver={e => { e.preventDefault(); dragOver.current = true; }}
         onDrop={e => { e.preventDefault(); onDrop(); dragOver.current = false; }}
       >
-        <span style={{ fontSize: 18 }}>+</span>
+        <span className="empty-plus">+</span>
       </td>
     );
   }
@@ -183,12 +183,17 @@ export default function RosterView({ roster: initRoster, flash }) {
         <div className="kpi"><div className="k">Staff active</div><div className="v">{STAFF.length}</div></div>
       </div>
 
-      <style>{`@media print {
-        .sidebar, .comments, .header, .view-head button { display: none !important; }
-        .main { padding: 0 !important; }
-        body { overflow: visible !important; height: auto !important; }
-        .app-body { height: auto !important; }
-      }`}</style>
+      <style>{`
+        .empty-cell { text-align: center; cursor: pointer; min-width: 110px; }
+        .empty-plus { font-size: 18px; color: transparent; transition: color .15s; }
+        .empty-cell:hover .empty-plus { color: #ccc; }
+        @media print {
+          .sidebar, .comments, .header, .view-head button { display: none !important; }
+          .main { padding: 0 !important; }
+          body { overflow: visible !important; height: auto !important; }
+          .app-body { height: auto !important; }
+        }
+      `}</style>
     </>
   );
 }
