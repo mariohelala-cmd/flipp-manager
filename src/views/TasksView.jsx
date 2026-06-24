@@ -24,7 +24,7 @@ const DEFAULT_TASKS = {
   Wed: [
     { id:9,  t:'Top up fryer oil before open',                               tag:'Daily',         assignee:'', done:false },
     { id:10, t:'Wash & sanitise all surfaces',                               tag:'Daily',         assignee:'', done:false },
-    { id:11, t:'Full oil change — replace with fresh oil',                   tag:'Wednesday',     assignee:'Sartak', done:false },
+    { id:11, t:'Full oil change — replace with fresh oil',                   tag:'Wednesday',     assignee:'', done:false },
     { id:12, t:'Full product count (patties, chicken, sauces, buns, drinks, sides)', tag:'Wednesday', assignee:'', done:false },
     { id:13, t:'Begin extra prep for Thursday rush',                         tag:'Wednesday',     assignee:'', done:false },
     { id:14, t:'Filter fryer oil (end of day)',                              tag:'Daily',         assignee:'', done:false },
@@ -32,7 +32,7 @@ const DEFAULT_TASKS = {
   ],
   Thu: [
     { id:16, t:'Top up fryer oil before open',                               tag:'Daily',         assignee:'', done:false },
-    { id:17, t:'Check all stock levels before open — restock anything low',  tag:'Thursday rush', assignee:'Sandi', done:false },
+    { id:17, t:'Check all stock levels before open — restock anything low',  tag:'Thursday rush', assignee:'', done:false },
     { id:18, t:'Make extra patties, chicken portions & sauces',              tag:'Thursday rush', assignee:'', done:false },
     { id:19, t:'Make extra sides & prep buns',                               tag:'Thursday rush', assignee:'', done:false },
     { id:20, t:'Wash & sanitise all surfaces',                               tag:'Daily',         assignee:'', done:false },
