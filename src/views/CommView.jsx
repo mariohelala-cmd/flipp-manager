@@ -100,7 +100,16 @@ export default function CommView({ flash }) {
           const tag = m.tag ? tagObj(m.tag) : null;
           return (
             <div key={m.id} className="cmt" style={{ position: 'relative' }}>
-              <span className="cmt-when">{m.when}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <span className="cmt-when" style={{ position: 'static' }}>{m.when}</span>
+                {confirmDelete !== m.id && (
+                  <button
+                    onClick={() => setConfirmDelete(m.id)}
+                    style={{ background: 'none', border: 'none', color: 'var(--red)', fontSize: 15, fontWeight: 700, cursor: 'pointer', lineHeight: 1, padding: '0 2px', flexShrink: 0 }}
+                    title="Delete message"
+                  >✕</button>
+                )}
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                 <div className="cmt-who" style={{ marginBottom: 0 }}>{m.who}</div>
                 {tag && (
@@ -115,16 +124,6 @@ export default function CommView({ flash }) {
                   <button onClick={() => deleteMsg(m.id)} style={{ background: 'var(--red)', color: '#fff', border: 0, borderRadius: 6, padding: '3px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Yes, delete</button>
                   <button onClick={() => setConfirmDelete(null)} style={{ background: '#eee', border: 0, borderRadius: 6, padding: '3px 12px', fontSize: 11, cursor: 'pointer' }}>Cancel</button>
                 </div>
-              ) : (
-                <button
-                  onClick={() => setConfirmDelete(m.id)}
-                  style={{
-                    position: 'absolute', top: 10, right: 10,
-                    background: 'none', border: 'none',
-                    color: '#ccc', fontSize: 16, fontWeight: 700, cursor: 'pointer', lineHeight: 1,
-                  }}
-                  title="Delete message"
-                >✕</button>
               )}
             </div>
           );
