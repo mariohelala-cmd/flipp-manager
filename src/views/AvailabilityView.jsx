@@ -65,19 +65,19 @@ export default function AvailabilityView({ flash }) {
       <div className="card" style={{ overflowX: 'auto', padding: 0 }}>
         <table style={{ minWidth: 680, borderCollapse: 'collapse', width: '100%' }}>
           <thead>
-            <tr style={{ background: 'var(--charcoal)' }}>
+            <tr style={{ background: '#f0f0f0', borderBottom: '2px solid var(--line)' }}>
               <th style={{
-                color: '#fff', padding: '13px 16px', textAlign: 'left', minWidth: 130,
-                fontSize: 13, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+                color: '#111', padding: '13px 16px', textAlign: 'left', minWidth: 130,
+                fontSize: 13, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
               }}>Name</th>
               {DAYS.map(d => (
                 <th key={d} style={{
-                  color: '#fff', textAlign: 'center', padding: '13px 8px', minWidth: 66,
-                  fontSize: 13, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+                  color: '#111', textAlign: 'center', padding: '13px 8px', minWidth: 66,
+                  fontSize: 13, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
                 }}>{d}</th>
               ))}
               <th style={{
-                color: '#e8c4d8', textAlign: 'center', padding: '13px 8px', minWidth: 52,
+                color: '#555', textAlign: 'center', padding: '13px 8px', minWidth: 52,
                 fontSize: 11, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
               }}>Days</th>
             </tr>
