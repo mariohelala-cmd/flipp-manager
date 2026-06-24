@@ -71,30 +71,30 @@ export default function AvailabilityView({ flash }) {
         )}
       </div>
 
-      <div className="card" style={{ overflowX: 'auto', padding: 0 }}>
-        <table style={{ minWidth: 680, borderCollapse: 'collapse', width: '100%' }}>
+      <div className="card" style={{ padding: 0 }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr style={{ background: '#f0f0f0', borderBottom: '2px solid var(--line)' }}>
               <th style={{
-                color: '#111', padding: '13px 16px', textAlign: 'left', minWidth: 130,
-                fontSize: 13, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
+                color: '#111', padding: '8px 12px', textAlign: 'left', width: 110,
+                fontSize: 11, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
               }}>Name</th>
               {DAYS.map(d => (
                 <th key={d} style={{
-                  color: '#111', textAlign: 'center', padding: '13px 8px', minWidth: 66,
-                  fontSize: 13, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
+                  color: '#111', textAlign: 'left', padding: '8px 6px',
+                  fontSize: 11, fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase',
                 }}>{d}</th>
               ))}
               <th style={{
-                color: '#555', textAlign: 'center', padding: '13px 8px', minWidth: 52,
-                fontSize: 11, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
+                color: '#555', textAlign: 'center', padding: '8px 6px', width: 40,
+                fontSize: 10, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase',
               }}>Days</th>
             </tr>
           </thead>
           <tbody>
             {staffList.map((staff, si) => (
               <tr key={staff} style={{ background: si % 2 === 0 ? '#fff' : '#fdf5f8' }}>
-                <td style={{ fontWeight: 700, fontSize: 14, padding: '6px 12px', borderRight: '1px solid var(--line)' }}>
+                <td style={{ fontWeight: 700, fontSize: 12, padding: '4px 10px', borderRight: '1px solid var(--line)' }}>
                   {confirmDelete === staff ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                       <span style={{ fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>Remove {staff}?</span>
@@ -111,7 +111,7 @@ export default function AvailabilityView({ flash }) {
                   const checked = avail[staff]?.[d];
                   const note = notes[staff]?.[d] || '';
                   return (
-                    <td key={d} style={{ padding: '5px 4px' }}>
+                    <td key={d} style={{ padding: '3px 4px' }}>
                       <div className="avail-cell">
                         <button
                           className={`avail-btn${checked ? ' avail-checked' : ''}`}
@@ -131,7 +131,7 @@ export default function AvailabilityView({ flash }) {
                     </td>
                   );
                 })}
-                <td style={{ textAlign: 'center', fontWeight: 700, fontSize: 13, color: 'var(--red)', padding: '5px 8px' }}>
+                <td style={{ textAlign: 'center', fontWeight: 700, fontSize: 12, color: 'var(--red)', padding: '3px 6px' }}>
                   {DAYS.filter(d => avail[staff]?.[d]).length}
                 </td>
               </tr>
@@ -139,14 +139,14 @@ export default function AvailabilityView({ flash }) {
           </tbody>
           <tfoot>
             <tr style={{ background: '#f0f0f0', borderTop: '2px solid var(--line)' }}>
-              <td style={{ fontWeight: 700, fontSize: 12, padding: '8px 12px', color: '#555', textTransform: 'uppercase', letterSpacing: '.4px' }}>Available</td>
+              <td style={{ fontWeight: 700, fontSize: 10, padding: '6px 10px', color: '#555', textTransform: 'uppercase', letterSpacing: '.4px' }}>Available</td>
               {DAYS.map(d => {
                 const n = daysAvail(d);
                 const short = n < MIN_STAFF;
                 return (
-                  <td key={d} style={{ textAlign: 'center', padding: '8px 4px' }}>
+                  <td key={d} style={{ textAlign: 'left', padding: '6px 6px' }}>
                     <span style={{
-                      display: 'inline-block', minWidth: 26, padding: '3px 7px',
+                      display: 'inline-block', minWidth: 22, padding: '2px 6px',
                       borderRadius: 8, fontSize: 12, fontWeight: 700,
                       background: short ? '#fee2e2' : '#dbeafe',
                       color: short ? 'var(--red)' : '#1d4ed8',
@@ -196,22 +196,22 @@ export default function AvailabilityView({ flash }) {
       </div>
 
       <style>{`
-        .avail-cell { display: flex; align-items: center; gap: 4px; justify-content: flex-start; padding-left: 8px; }
+        .avail-cell { display: flex; align-items: center; gap: 3px; justify-content: flex-start; padding-left: 4px; }
         .avail-btn {
-          flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px;
+          flex-shrink: 0; width: 22px; height: 22px; border-radius: 5px;
           border: 2px solid #d1d5db; background: #f9fafb;
           cursor: pointer; transition: all .15s;
           display: inline-flex; align-items: center; justify-content: center;
         }
         .avail-btn:hover { border-color: var(--red); background: #fff0f3; }
         .avail-checked { border-color: var(--red) !important; background: var(--red) !important; }
-        .avail-tick { font-size: 14px; font-weight: 900; color: transparent; transition: color .15s; line-height: 1; }
+        .avail-tick { font-size: 11px; font-weight: 900; color: transparent; transition: color .15s; line-height: 1; }
         .avail-btn:hover .avail-tick { color: var(--red); }
         .avail-checked .avail-tick { color: #fff !important; }
         .avail-note {
-          width: 80px; opacity: 0; pointer-events: none;
-          font-size: 11px; border: 1px solid #e5e7eb; border-radius: 5px;
-          padding: 3px 6px; background: #fff; color: #333;
+          width: 70px; opacity: 0; pointer-events: none;
+          font-size: 10px; border: 1px solid #e5e7eb; border-radius: 4px;
+          padding: 2px 5px; background: #fff; color: #333;
           transition: opacity .15s ease;
         }
         .avail-cell:hover .avail-note,
