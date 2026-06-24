@@ -136,7 +136,7 @@ export const initialChecklist = {
 };
 
 export const initialComments = [
-  {who:"Sara",txt:"Fryer #2 making a rattling noise — booked CleanPro to look Thu.",flag:true,when:"1h ago"},
-  {who:"Ahmed",txt:"Running low on cheese slices, added to Wed order.",flag:false,when:"3h ago"},
-  {who:"Lily",txt:"Eftpos terminal was slow this morning, restarted and OK now.",flag:false,when:"Yest"},
+  {who:"Sandi",txt:"Fryer #2 making a rattling noise — booked CleanPro to look Thu.",flag:true,when:"1h ago"},
+  {who:"Roshan",txt:"Running low on cheese slices, added to Wed order.",flag:false,when:"3h ago"},
+  {who:"Rima",txt:"Eftpos terminal was slow this morning, restarted and OK now.",flag:false,when:"Yest"},
 ];
