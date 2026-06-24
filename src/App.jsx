@@ -19,14 +19,13 @@ import ChecklistView      from './views/ChecklistView';
 import AvailabilityView   from './views/AvailabilityView';
 
 import {
-  initialRoster, initialTasks, initialEmails,
+  initialRoster, initialEmails,
   initialIncidents, initialChecklist, initialComments,
 } from './data/initialData';
 
 export default function App() {
   const [tab, setTab]             = useState('roster');
   const [roster]                  = useState(initialRoster);
-  const [tasks, setTasks]         = useState(initialTasks);
   const [emails, setEmails]       = useState(initialEmails);
   const [incidents, setIncidents] = useState(initialIncidents);
   const [checklist, setChecklist] = useState(initialChecklist);
@@ -47,7 +46,7 @@ export default function App() {
 
   const views = {
     roster:      <RosterView      roster={roster}                                     {...viewProps} />,
-    tasks:       <TasksView       tasks={tasks}       setTasks={setTasks}             {...viewProps} />,
+    tasks:       <TasksView                                                            {...viewProps} />,
     comm:        <CommView                                                              {...viewProps} />,
     suppliers:   <SuppliersView                                                        {...viewProps} />,
     orders:      <OrdersView                                                           {...viewProps} />,
