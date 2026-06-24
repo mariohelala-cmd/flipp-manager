@@ -15,7 +15,8 @@ import EmailsView      from './views/EmailsView';
 import FinanceView     from './views/FinanceView';
 import PerformanceView from './views/PerformanceView';
 import IncidentsView   from './views/IncidentsView';
-import ChecklistView   from './views/ChecklistView';
+import ChecklistView      from './views/ChecklistView';
+import AvailabilityView   from './views/AvailabilityView';
 
 import {
   initialRoster, initialTasks, initialEmails,
@@ -54,7 +55,8 @@ export default function App() {
     finance:     <FinanceView                                                          {...viewProps} />,
     performance: <PerformanceView                                                      {...viewProps} />,
     incidents:   <IncidentsView   incidents={incidents} setIncidents={setIncidents}   {...viewProps} />,
-    checklist:   <ChecklistView   checklist={checklist} setChecklist={setChecklist}   {...viewProps} />,
+    checklist:    <ChecklistView    checklist={checklist} setChecklist={setChecklist}   {...viewProps} />,
+    availability: <AvailabilityView                                                      {...viewProps} />,
   };
 
   return (

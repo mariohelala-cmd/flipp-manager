@@ -5,9 +5,10 @@ const NAV = [
     { tab: 'comm',        ic: '💬', label: 'Communication' },
   ]},
   { group: 'Staff', items: [
-    { tab: 'performance', ic: '⭐', label: 'Performance' },
-    { tab: 'incidents',   ic: '🚨', label: 'Incident Log' },
-    { tab: 'checklist',   ic: '🔐', label: 'Open / Close' },
+    { tab: 'availability', ic: '🗓️', label: 'Staff Availability' },
+    { tab: 'performance',  ic: '⭐', label: 'Performance' },
+    { tab: 'incidents',    ic: '🚨', label: 'Incident Log' },
+    { tab: 'checklist',    ic: '🔐', label: 'Open / Close' },
   ]},
   { group: 'Admin', items: [
     { tab: 'emails',      ic: '✉️', label: 'Managing Emails' },
