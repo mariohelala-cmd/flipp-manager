@@ -121,7 +121,7 @@ export default function AvailabilityView({ flash }) {
                           <span className="avail-tick">✓</span>
                         </button>
                         <input
-                          className="avail-note"
+                          className={`avail-note${note ? ' has-value' : ''}`}
                           value={note}
                           onChange={e => setNote(staff, d, e.target.value)}
                           placeholder="e.g. after 2pm"
@@ -215,13 +215,12 @@ export default function AvailabilityView({ flash }) {
           transition: width .2s ease, opacity .2s ease;
           white-space: nowrap; overflow: hidden;
         }
-        .avail-cell:hover .avail-note {
+        .avail-cell:hover .avail-note,
+        .avail-note:focus,
+        .avail-note.has-value {
           width: 80px; opacity: 1; pointer-events: auto;
         }
-        .avail-note:focus {
-          width: 80px !important; opacity: 1 !important; pointer-events: auto !important;
-          outline: none; border-color: var(--red);
-        }
+        .avail-note:focus { outline: none; border-color: var(--red); }
       `}</style>
     </>
   );
