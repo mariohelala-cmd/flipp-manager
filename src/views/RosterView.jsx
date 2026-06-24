@@ -106,7 +106,21 @@ function ShiftCell({ shift, onUpdate, onRemove, onDragStart, onDrop }) {
 
 export default function RosterView({ roster: initRoster, flash }) {
   const [roster, setRoster] = useState(initRoster);
-  const drag = useRef(null); // { staff, day }
+  const [staffList, setStaffList] = useState(STAFF);
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState('');
+  const drag = useRef(null);
+
+  function addStaff() {
+    const name = newName.trim();
+    if (!name) return;
+    if (staffList.includes(name)) { flash(`${name} is already on the roster`); return; }
+    setStaffList(s => [...s, name]);
+    setRoster(r => ({ ...r, [name]: { Mon:null, Tue:null, Wed:null, Thu:null, Fri:null, Sat:null, Sun:null } }));
+    setNewName('');
+    setAdding(false);
+    flash(`${name} added to roster`);
+  }
 
   function updateShift(staff, day, shift) {
     setRoster(r => ({ ...r, [staff]: { ...r[staff], [day]: shift } }));
@@ -128,10 +142,10 @@ export default function RosterView({ roster: initRoster, flash }) {
     drag.current = null;
   }
 
-  const totalShifts = STAFF.reduce((a, s) => a + DAYS.filter(d => roster[s][d]).length, 0);
+  const totalShifts = staffList.reduce((a, s) => a + DAYS.filter(d => roster[s]?.[d]).length, 0);
   const busiestDay  = DAYS.reduce((best, d) => {
-    const count = STAFF.filter(s => roster[s][d]).length;
-    return count > (STAFF.filter(s => roster[s][best]).length) ? d : best;
+    const count = staffList.filter(s => roster[s]?.[d]).length;
+    return count > staffList.filter(s => roster[s]?.[best]).length ? d : best;
   }, DAYS[0]);
 
   function print() {
@@ -144,6 +158,22 @@ export default function RosterView({ roster: initRoster, flash }) {
         <h2>Weekly Roster</h2>
         <div className="sub">Tap any shift to edit · Tap role badge to toggle FOH/BOH · Drag to move</div>
         <button className="btn ghost sm" style={{ marginLeft: 'auto' }} onClick={print}>🖨️ Print</button>
+        {adding ? (
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <input
+              autoFocus
+              value={newName}
+              onChange={e => setNewName(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') addStaff(); if (e.key === 'Escape') { setAdding(false); setNewName(''); } }}
+              placeholder="Staff name…"
+              style={{ fontSize: 13, border: '1px solid var(--line)', borderRadius: 8, padding: '5px 10px', width: 140 }}
+            />
+            <button className="btn sm" onClick={addStaff}>Add</button>
+            <button className="btn ghost sm" onClick={() => { setAdding(false); setNewName(''); }}>Cancel</button>
+          </div>
+        ) : (
+          <button className="btn ghost sm" onClick={() => setAdding(true)}>+ Add Staff</button>
+        )}
         <button className="btn sm" onClick={() => flash('Roster published to staff (demo)')}>Publish to staff</button>
       </div>
 
@@ -158,7 +188,7 @@ export default function RosterView({ roster: initRoster, flash }) {
             </tr>
           </thead>
           <tbody>
-            {STAFF.map((staff, si) => (
+            {staffList.map((staff, si) => (
               <tr key={staff} style={{ background: si % 2 === 0 ? '#fff' : '#fdf5f8' }}>
                 <td style={{ fontWeight: 700, fontSize: 14, padding: '8px 16px', borderRight: '1px solid var(--line)' }}>{staff}</td>
                 {DAYS.map(day => (
@@ -180,7 +210,7 @@ export default function RosterView({ roster: initRoster, flash }) {
       <div className="grid3">
         <div className="kpi"><div className="k">Total shifts</div><div className="v">{totalShifts}</div></div>
         <div className="kpi"><div className="k">Busiest day</div><div className="v">{busiestDay}</div></div>
-        <div className="kpi"><div className="k">Staff active</div><div className="v">{STAFF.length}</div></div>
+        <div className="kpi"><div className="k">Staff active</div><div className="v">{staffList.length}</div></div>
       </div>
 
       <style>{`
